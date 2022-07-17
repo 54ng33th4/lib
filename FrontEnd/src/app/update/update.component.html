@@ -1,0 +1,36 @@
+<div class="background">
+    <div class="body">
+
+        <h2>{{title}}</h2>
+
+        <form (ngSubmit)="editBlogData()">
+            <div class="inputs">
+                <tr>
+                    <td>Blog-Author</td> 
+                    <td><input type="text" name="BlogAuth"  [(ngModel)]="BlogData.BlogAuth"></td>
+                </tr>
+                <tr>
+                    <td>Blog-image</td> 
+                    <td><input type="text" name="BlogImg"  [(ngModel)]="BlogData.BlogImg"></td>
+                </tr>
+                <tr>
+                    <td>Blog-Title</td> 
+                    <td><input type="text" name="BlogHead"  [(ngModel)]="BlogData.BlogHead"></td>
+                </tr>
+                <tr id="B-desc">
+                    <td>Blog-Description</td> 
+                    <td><input type="text" name="BlogDesc" [(ngModel)]="BlogData.BlogDesc"></td>
+                </tr>
+                <tr id="B-cont">
+                    <td>Blog-Content</td> 
+                    <td><input type="text"  name="BlogCont" [(ngModel)]="BlogData.BlogCont"></td>
+                </tr>
+            </div>
+            <!-- <i class="fa-solid fa-heart"></i> -->
+            <!-- <i class="fa-solid fa-bars-sort"></i> -->
+            <button routerLink="/" type="button">Cancel</button>
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+</div>

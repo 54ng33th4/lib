@@ -1,0 +1,53 @@
+<div class="background" >
+    <div *ngFor="let i of Blogs"  class="articleBg">
+        <!-- <h1>heii there</h1> -->
+
+        <div class="head">
+            <div class="image"><img [src]= "i.BlogImg" ></div>
+            
+            <div class="name"><p>{{i.BlogAuth}}</p></div>
+            
+           
+            
+        </div>
+         <div class="btn">
+                <button style="margin-left:-40px;" id="button2" class="btn btn-primary">follow</button>
+                <a href="" (click)="deleteBlogData(i._id)"  value="delete">Delete</a>
+                <!-- <button class="btn btn-danger" style="cursor:pointer" (click)= "deleteBlogData(i._id)" value="delete"> Delete</button> -->
+                <button  class="btn btn-warning" style="cursor:pointer" (click)="editBlogData(i)" value="update" >Edit</button>
+            </div>
+        <div class="contdisplay">
+            
+
+           
+
+
+            <div  class="content-body">
+
+                    <h2>{{i.BlogHead}} </h2> 
+                    <h6>"{{i.BlogDesc}}"</h6>
+                    <p>{{i.BlogCont}}</p>
+                <!-- <i class="bi bi-heart-fill"></i> -->
+
+            </div>
+
+
+
+
+            <div class="inputfooter">
+                <a href="#" (click)="Like()" id="like"><i class="fa-regular fa-heart" ></i></a>
+                <a href="" id="comment"><i class="fa-regular fa-comment" style="color:black ;"></i></a>   
+                <i class="fa-regular fa-paper-plane" style="padding-bottom: 20px;"></i>        
+                <i class="fa-regular fa-bookmark" style="float:right;"></i>
+            </div>
+
+            
+            <div class="date"><P>10-06-2022</P></div>
+
+        </div>
+
+
+    </div>
+    
+    
+</div>
