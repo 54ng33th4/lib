@@ -1,0 +1,75 @@
+@import url(https://fonts.bunny.net/css?family=epilogue:400,800);
+
+html,
+#sect1{
+    background: url("/assets/images/bg5.jpg")
+        center center/cover no-repeat fixed;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "epilogue";
+    font-size: 62.5%;
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 3rem;
+    color:#98878F;
+}
+
+#name {
+    font-size: 2rem;
+    color: #fffffc;
+}
+
+hr {
+    margin: 20px auto;
+    color: #730071;
+    border: 3px solid #730071;
+    max-width: 65px;
+    opacity: 1;
+}
+
+.btn-primary {
+    background-color: #ff3864;
+    border-color: #ff3864;
+    font-size: 1.8rem;
+    font-weight: 800;
+    padding: 1rem 2.5rem;
+    color: #fffffc;
+    transition: all 1s;
+}
+
+.btn-primary:hover {
+    background-color: #ff785a;
+    border-color: #ff785a;
+    transform: scale(0.9);
+}
+
+.btn-primary:visited {
+    background-color: #730071;
+    border-color: #730071;
+}
+.btn-secondary:visited {
+    background-color: #ff785a;
+    border-color: #ff785a;
+    transform: scale(0.9);
+}
+
+.btn-secondary:hover {
+    background-color: #730071;
+    border-color: #730071;
+}
+
+.btn-secondary {
+    background-color: #ff785a;
+    border-color: #ff785a;
+    font-size: 1.8rem;
+    font-weight: 800;
+    padding: 1rem 2.5rem;
+    color: #fffffc;
+    transition: all 1s;
+}
+p {
+    font-size: 1rem;
+    color: #fffffc;
+}

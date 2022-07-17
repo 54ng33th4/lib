@@ -1,117 +1,113 @@
-//importing modules
 const express = require('express');
-// const mongoose = require('mongoose');
+const BookData = require('./src/model/Bookdata');
+//const User = require('./src/model/user');
 const cors = require('cors');
-const BlogModel = require('./models/BlogModel')
-const bodyparser = require('body-parser');
-// const path = require('path');
-// const BlogModel = require('./models/BlogModel');
-
-var app = express();
-
-// const route = require('./routes/route');
-
-
-//port no
-const port = 3000;
-
-//adding middilware
+//var bodyparser=require('body-parser');
+const jwt = require('jsonwebtoken')
+var app = new express();
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 app.use(cors());
-
-//bdoy-parser
-app.use(bodyparser.json());
-
-//static files
-// app.use(express.static(path.join(__dirname, 'public')));
-
-//route
-// app.use('/api',route);
-
-
-app.get('/Blogs', (req, res, next)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-    BlogModel.find()
-    .then(function(Blogbody){
-        res.send(Blogbody); 
-    })
+//app.use(bodyparser.json());
+username='admin';
+password='1234';
+//
+//
+//function verifyToken(req, res, next) {
+//    if(!req.headers.authorization) {
+//      return res.status(401).send('Unauthorized request')
+//    }
+//    let token = req.headers.authorization.split(' ')[1]
+//    if(token === 'null') {
+//      return res.status(401).send('Unauthorized request')    
+//    }
+//    let payload = jwt.verify(token, 'secretKey')
+//    if(!payload) {
+//      return res.status(401).send('Unauthorized request')    
+//    }
+//    req.userId = payload.subject
+//    next()
+//  }
+//
+app.post('/insert',/*verifyToken,*/function(req,res){
+   
+    console.log(req.body);
+   
+    var book = {       
+        bookId : req.body.book.bookId,
+        bookName : req.body.book.bookName,
+        Author : req.body.book.Author,
+        description : req.body.book.description,
+        imageUrl : req.body.book.imageUrl,
+   }       
+   var book = new BookData(book);
+   book.save();
+});
+app.get('/books',function(req,res){
+    
+    BookData.find()
+                .then(function(books){
+                    res.send(books);
+                });
+});
+app.get('/:id',  (req, res) => {
+  
+  const id = req.params.id;
+    BookData.findOne({"_id":id})
+    .then((book)=>{
+        res.send(book);
+    });
 })
 
-app.post('/add',(req, res, next)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-    // var Blog = ({
-    //     BlogHead: req.body.item.BlogHead,
-    //     BlogDesc: req.body.item.BlogDesc,
-    //     BlogCont: req.body.item.BlogCont
-    // });
-    var Blog = ({
-        BlogAuth: req.body.item.BlogAuth,
-        BlogImg : req.body.item.BlogImg,
-        BlogHead: req.body.item.BlogHead,
-        BlogDesc: req.body.item.BlogDesc,
-        BlogCont: req.body.item.BlogCont
-    });
+app.post('/login', (req, res) => {
+   let userData = req.body
+   
+     
+       if (!username) {
+         res.status(401).send('Invalid Username')
+       } else 
+       if ( password !== userData.password) {
+         res.status(401).send('Invalid Password')
+       } else {
+         let payload = {subject: username+password}
+         let token = jwt.sign(payload, 'secretKey')
+         res.status(200).send({token})
+       }
+     
+   })
 
-    var Blogbody = new BlogModel(Blog)
-    Blogbody.save();
-    console.log("new data added successfully...");
-
-
-    // new Blogbody.save((err, Blog)=>{
-    //     if(err)
-    //     {
-    //         res.json({msg: 'failed to add contact'+err});
-    //     }
-    //     else{
-    //         res.json({msg: 'contact added successfully'});
-
-    //     }
-    // });
-});
-
-app.delete('/remove/:id',(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-    id = req.params.id;
-    BlogModel.findByIdAndDelete({"_id":id})
-    .then(()=>{
-        console.log('data deleted successfully')
-        res.send();
-    })
-  })
-
-  app.get('/Blog/:id',  (req, res) => {
-
-    const id = req.params.id;
-    // console.log("2-success")
-    BlogModel.findOne({"_id":id})
-      .then((i)=>{
-          res.send(i);
-      });
-    //   console.log(bdata);
-  })
-
-  app.put('/edit',(req, res)=>{
+    app.put('/update',(req,res)=>{
       console.log(req.body)
       id=req.body._id,
-      BlogAuth = req.body.BlogAuth,
-      BlogImg  = req.body.BlogImg,
-      BlogHead = req.body.BlogHead,
-      BlogDesc = req.body.BlogDesc,
-      BlogCont = req.body.BlogCont,
-      BlogModel.findByIdAndUpdate({"_id":id},
-                                {$set:{"BlogAuth":BlogAuth,
-                                "BlogImg":BlogImg,
-                                "BlogHead":BlogHead,
-                                "BlogDesc":BlogDesc,
-                                "BlogCont":BlogCont}})
- .then(function(){
-     res.send();
-                                        // console.log(res);
-    })
-  })
+      bookId= req.body.bookId,
+      bookName = req.body.bookName,
+      Author = req.body.Author,
+      description = req.body.description,
+      imageUrl = req.body.imageUrl
+     BookData.findByIdAndUpdate({"_id":id},
+                                  {$set:{"bookId":bookId,
+                                  "bookName":bookName,
+                                  "Author":Author,
+                                  "description":description,
+                                  "imageUrl":imageUrl}})
+     .then(function(){
+         res.send();
+     })
+   })
+   
+app.delete('/remove/:id',(req,res)=>{
+   
+     id = req.params.id;
+     BookData.findByIdAndDelete({"_id":id})
+     .then(()=>{
+         console.log('success')
+         res.send();
+     })
+   })
+   
+// For Heroku  
+const PORT = (process.env.PORT || 5000);
+app.listen(PORT, function(){
+    console.log('listening to port 5000');
+});
 
-app.listen(port,()=>{
-    console.log('server run at port:'+port);
-})

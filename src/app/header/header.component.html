@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg"style="background-color: #192231;">
+    <div class="container-fluid">
+        <h1 style="color: #985E6D;padding-right: 25px;">{{title}}</h1>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/books" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="_auth.loggedIn()">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/insert" style="cursor:pointer" routerLinkActive="active"*ngIf="_auth.loggedIn()" >Add New Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white"  style="cursor:pointer" routerLinkActive="active" *ngIf="_auth.loggedIn()" (click)="logoutUser()" >Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- <div class="card-header">
+    <a routerLink="/">Products</a>
+</div> -->
