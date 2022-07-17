@@ -9,12 +9,14 @@ import { UserService } from '../user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public user:UserService , private route:Router) { }
+  constructor(private route:Router , public user:UserService) { }
 
   ngOnInit(): void {
   }
+
   logout(){
-    localStorage.removeItem("token")
-    this.route.navigate(['/login'])
+    localStorage.removeItem("token") 
+    this.route.navigate(['login'])
   }
+
 }

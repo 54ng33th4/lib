@@ -9,21 +9,31 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userservice:UserService , private route:Router) { }
   user={
     username:"",
     password:""
   }
 
+  constructor(private userservice:UserService , private route:Router) { }
+
   ngOnInit(): void {
-    
 
   }
+
+
   loginuser(){
     this.userservice.loginuser(this.user).subscribe((res)=>{
+     if(res.status){
       localStorage.setItem('token' , res.token)
-      this.route.navigate(["/books"])
-     })
-    
+      this.route.navigate(['books'])
+     }else{
+      alert("Username or Password is incorrect")
+      window.location.reload();
+
+     }
+      
+    })
   }
 }
+
+

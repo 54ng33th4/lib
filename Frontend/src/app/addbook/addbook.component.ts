@@ -9,29 +9,30 @@ import { BookService } from '../book.service';
 })
 export class AddbookComponent implements OnInit {
 
+  constructor(private bookservice:BookService , private route:Router) { }
+
   books={
 
-    slno:"",
+    code:"",
     bookname:"",
     author:"",
     edition:"",
+    rating:"",
     imageurl:"",
+    description:""
 
   }
-
-  constructor(private bookservice:BookService , private route:Router) { }
 
   ngOnInit(): void {
   }
 
   addbook(){
-    this.bookservice.addbook(this.books).subscribe((data)=>{console.log(data)})
-    this.route.navigate(["/books"])
+        this.bookservice.addbook(this.books)
+        .subscribe((data)=>{
+          console.log(data);
+          
+        })
+        this.route.navigate(['/books'])
   }
-
-
-
-
-
 
 }

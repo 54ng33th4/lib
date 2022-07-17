@@ -11,25 +11,28 @@ export class UpdateComponent implements OnInit {
 
   books={
 
-    slno:"",
+    code:"",
     bookname:"",
     author:"",
     edition:"",
+    rating:"3.4",
     imageurl:"",
+    description:""
 
   }
 
   constructor(private bookservice:BookService , private route:Router) { }
 
   ngOnInit(): void {
-    let BookId  = localStorage.getItem("Bookdata")
-    this.bookservice.getbook(BookId).subscribe((data)=>{
+    let BookId = localStorage.getItem("Bookdata")
+    this.bookservice.getbookdata(BookId).subscribe((data)=>{
       this.books=JSON.parse(JSON.stringify(data))
     })
+
   }
 
   updatebook(){
-    this.bookservice.updatedata(this.books)
+      this.bookservice.updatebook(this.books)
       .subscribe((data)=>{console.log(data)})
 
       this.route.navigate(["books"])

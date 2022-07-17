@@ -1,26 +1,46 @@
-<div class="sign">
+<div  class="homebody">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-10 col-md-6 col-lg-4">
+          <div class="loginitem">
+            <form #form="ngForm" (ngSubmit)="form.valid&&loginuser()">
+              <h3 class="text-center mb-4">Login</h3>
+              <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input  class="form-control" required #username="ngModel" name="username" [(ngModel)]="user.username">
+                <small class="text-danger" *ngIf="form.submitted&&username.errors?.['required']">*Enter Username</small>
+              </div>
   
-	<form #form="ngForm" class="signup" (ngSubmit)="form.valid&&loginuser()" autocomplete="off">
-	  
-		<h1>Welcome</h1>
-	  
-	
-	  <div class="signup__field">
-		<input class="signup__input" type="text" name="username" id="username" required #username="ngModel" name="username" [(ngModel)]="user.username" />
-		<label class="signup__label" for="username">Username</label>
-		<small class="text-danger" *ngIf="form.submitted&&username.errors?.['required']">Require Username</small>
-	  </div>
-	
-	  
-	
-	  <div class="signup__field">
-		<input class="signup__input" type="password" name="password" id="password" required #username="ngModel" name="password" [(ngModel)]="user.password" />
-		<label class="signup__label" for="password">Password</label>
-		<small class="text-danger" *ngIf="form.submitted&&username.errors?.['required']">Require Password</small>
-	  </div>
-	
-	  <button>Log In</button>
-	</form>
-	
-	
-	</div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input  class="form-control" required #password="ngModel" name="password" [(ngModel)]="user.password">
+                <small class="text-danger" *ngIf="form.submitted&&password.errors?.['required']">*Enter Password</small>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col d-flex justify-content-between">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked />
+                    <label class="form-check-label" for="form2Example34">Remember</label>
+                  </div>
+                </div>
+            
+                <div class="col">
+                  <a routerLink="login">Forgot password?</a>
+                </div>
+              </div>
+  
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+
+              <div class="text-center mt-4">
+                <p>Not a member? <a routerLink="/signup">Register</a></p>
+              </div>
+            </form>
+  
+          </div>
+        </div>
+      </div>  
+    </div>
+</div>

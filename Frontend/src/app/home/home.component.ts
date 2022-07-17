@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BookService } from '../book.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  books=[{
+
+    code:"",
+    bookname:"",
+    author:"",
+    edition:"",
+    rating:"",
+    imageurl:"",
+
+  }]
+
+  constructor(private bookservice:BookService , public user:UserService , private route:Router) { }
 
   ngOnInit(): void {
+    this.bookservice.getbooks().subscribe((data)=>{
+      this.books=JSON.parse(JSON.stringify(data))
+    })
+  }
+
+  viewbook(item:any){
+    localStorage.setItem("bookdata" , item._id.toString())
+    this.route.navigate(["bookview"])
+
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from '../book.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-books',
@@ -11,37 +12,44 @@ export class BooksComponent implements OnInit {
 
   books=[{
 
-    slno:"",
+    code:"",
     bookname:"",
     author:"",
     edition:"",
+    rating:"",
     imageurl:"",
 
   }]
 
-
-
-
-  constructor(private bookservice:BookService , private route:Router) { }
+  constructor(private bookservice:BookService , private route:Router , public user:UserService) { }
 
   ngOnInit(): void {
-
-    this.bookservice.getbooks().subscribe((data)=>{this.books=JSON.parse(JSON.stringify(data))})
+    this.bookservice.getbooks()
+    .subscribe((data)=>{
+      this.books=JSON.parse(JSON.stringify(data))
+    })
   }
 
+
   deletedata(item:any){
+    if(confirm(`Are you sure Want to delete ${item.bookname}`)){
     this.bookservice.deletedata(item._id)
     .subscribe((data)=>{
       this.books=this.books.filter(p=>p!==item)
     })
+    }
       
   }
 
-  updatedata(item:any){
+
+  update(item:any){
 
     localStorage.setItem("Bookdata" , item._id.toString())
-    this.route.navigate(["updatebook"])
+    this.route.navigate(["update"])
 
   }
+
+
+
 
 }

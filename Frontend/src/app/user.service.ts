@@ -8,24 +8,24 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-
-
   adduser(data:any){
-    return this.http.post("http://localhost:3000/adduser" , {data:data})
+    return this.http.post('http://localhost:3000/adduser' , {data:data})
   }
 
   loginuser(data:any){
-    return this.http.post<any>("http://localhost:3000/login" , {data:data})
+    return this.http.post<any>('http://localhost:3000/login' , {data:data})
   }
 
-  logedin(){
-    return !!localStorage.getItem('token')
+  logedIn(){
+    return !!localStorage.getItem("token")
   }
 
   gettoken(){
-    return localStorage.getItem('token')
+    return localStorage.getItem("token")
   }
-
+  
 }
+
+
 
 

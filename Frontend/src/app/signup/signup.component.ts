@@ -10,21 +10,23 @@ import { UserService } from '../user.service';
 export class SignupComponent implements OnInit {
 
   constructor(private userservice:UserService , private route:Router) { }
-
+   
   user={
     username:"",
     email:"",
-    password:""
+    phonenumber:"",
+    password:"",
+    confpass:""
   }
-
-
-
-
 
   ngOnInit(): void {
   }
+
   signup(){
     this.userservice.adduser(this.user).subscribe((data)=>{console.log(data)})
-    this.route.navigate(["/login"])
+    this.route.navigate(['/login'])
   }
+
+
+
 }
